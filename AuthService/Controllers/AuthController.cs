@@ -42,6 +42,21 @@ public class AuthController : Controller
             return BadRequest(_responseDto);
         }
 
-        return Ok(loginResponse);
+        _responseDto.Result = loginResponse;
+        return Ok(_responseDto);
+    }
+
+    [HttpPost("assign-role")]
+    public async Task<IActionResult> AssignRole([FromBody] RegistrationRequestDto model)
+    {
+        var assignRole = await _authService.AssignRole(model.Email, model.Role);
+        if (!assignRole)
+        {
+            _responseDto.IsSuccess = false;
+            _responseDto.Message = "Error encountered";
+            return BadRequest(_responseDto);
+        }
+
+        return Ok(_responseDto);
     }
 }
