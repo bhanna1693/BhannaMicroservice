@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonReviewApp", "PokemonReviewApp\PokemonReviewApp.csproj", "{22062C0F-F051-4B2E-B3E1-16849FADAE42}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonReviewAPI", "PokemonReviewAPI\PokemonReviewAPI.csproj", "{22062C0F-F051-4B2E-B3E1-16849FADAE42}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthService", "AuthService\AuthService.csproj", "{75A26692-1091-44F6-B4F8-5D5B30193213}"
 EndProject
