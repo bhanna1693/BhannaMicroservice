@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PokemonReviewAPI.Dto;
 using PokemonReviewAPI.Interfaces;
@@ -8,6 +9,7 @@ namespace PokemonReviewAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ReviewController : Controller
     {
         private readonly IReviewRepository _reviewRepository;
