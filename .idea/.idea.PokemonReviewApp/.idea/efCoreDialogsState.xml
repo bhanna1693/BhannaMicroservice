@@ -4,6 +4,7 @@
     <option name="keyValueStorage">
       <map>
         <entry key="Common:22062c0f-f051-4b2e-b3e1-16849fadae42:dbContext" value="PokemonReviewApp.Data.DataContext" />
+        <entry key="Common:75a26692-1091-44f6-b4f8-5d5b30193213:dbContext" value="AuthService.Data.AppDbContext" />
         <entry key="Common:buildConfiguration" value="Debug" />
         <entry key="Common:noBuild" value="false" />
         <entry key="Common:outputFolder" value="Migrations" />
