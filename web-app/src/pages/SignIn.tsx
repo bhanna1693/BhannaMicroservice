@@ -2,11 +2,13 @@ import React from 'react';
 import {useFormik} from "formik";
 import {LoginRequest, loginSchema} from "../utils/validators/login-schema";
 import {useAuth} from "../services/auth.service";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 export const SignInPage = () => {
     const {errorMsg, login} = useAuth()
     const navigate = useNavigate()
+    const location = useLocation();
+
 
     const loginForm = useFormik<LoginRequest>({
         initialValues: {
@@ -18,7 +20,8 @@ export const SignInPage = () => {
             // Handle form submission
             await login(values)
             if (!errorMsg) {
-                navigate(-1)
+                const previousPath = location.state?.from?.pathname;
+                navigate(previousPath ?? "/", {replace: true});
             }
         }),
     });

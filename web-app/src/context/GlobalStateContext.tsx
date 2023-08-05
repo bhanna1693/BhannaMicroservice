@@ -3,6 +3,7 @@ import React, {createContext, useContext, useReducer, ReactNode} from 'react';
 import {User} from "../models/User";
 
 interface GlobalState {
+    isLoggedIn: boolean;
     user: User | null;
     // Add other global state properties here
 }
@@ -18,6 +19,7 @@ type Action = {
 };
 
 const initialState: GlobalState = {
+    isLoggedIn: false,
     user: null,
     // Initialize other state properties
 };

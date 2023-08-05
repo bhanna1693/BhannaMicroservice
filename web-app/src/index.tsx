@@ -11,6 +11,7 @@ import {PokemonPage} from "./pages/Pokemon";
 import {SignInPage} from "./pages/SignIn";
 import {SignupPage} from "./pages/SignUp";
 import {HomePage} from "./pages/Home";
+import PrivateRoute from "./components/PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -28,7 +29,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "happyhour",
-                element: <HappyHourPage/>
+                element: <PrivateRoute><HappyHourPage/></PrivateRoute>
             },
             {
                 path: "pokemon",
