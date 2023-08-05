@@ -16,6 +16,19 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("ApiSettings:JwtOptions"));
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>();
+
+var CorsAllowedOrigins = builder.Configuration.GetValue<string>("ApiSettings:CORS:AllowedOrigins");
+var CorsPolicyName = "AllowFrontend";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(CorsPolicyName,
+        builder =>
+        {
+            builder.WithOrigins(CorsAllowedOrigins)
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
 builder.Services.AddControllers();
 
 builder.Services.AddScoped<IAuthService, AuthService.Services.AuthService>();
@@ -39,6 +52,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseCors(CorsPolicyName);
 
 app.MapControllers();
 
