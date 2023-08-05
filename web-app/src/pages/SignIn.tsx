@@ -2,10 +2,11 @@ import React from 'react';
 import {useFormik} from "formik";
 import {LoginRequest, loginSchema} from "../utils/validators/login-schema";
 import {useAuth} from "../services/auth.service";
-import {redirect} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 export const SignInPage = () => {
     const {errorMsg, login} = useAuth()
+    const navigate = useNavigate()
 
     const loginForm = useFormik<LoginRequest>({
         initialValues: {
@@ -17,7 +18,7 @@ export const SignInPage = () => {
             // Handle form submission
             await login(values)
             if (!errorMsg) {
-                redirect("/")
+                navigate(-1)
             }
         }),
     });
@@ -37,7 +38,8 @@ export const SignInPage = () => {
                             name="userName"
                             value={loginForm.values.userName} onChange={loginForm.handleChange}
                         />
-                        {loginForm.touched.userName && loginForm.errors.userName ? <div className={"text-error"}>{loginForm.errors.userName}</div> : null}
+                        {loginForm.touched.userName && loginForm.errors.userName ?
+                            <div className={"text-error"}>{loginForm.errors.userName}</div> : null}
 
                     </div>
                     <div className={"form-control w-full"}>
@@ -50,7 +52,8 @@ export const SignInPage = () => {
                             value={loginForm.values.password}
                             onChange={loginForm.handleChange}
                         />
-                        {loginForm.touched.password && loginForm.errors.password ? <div className={"text-error"}>{loginForm.errors.password}</div> : null}
+                        {loginForm.touched.password && loginForm.errors.password ?
+                            <div className={"text-error"}>{loginForm.errors.password}</div> : null}
                     </div>
                     <div className={"text-error"}>
                         {errorMsg ? errorMsg : null}
