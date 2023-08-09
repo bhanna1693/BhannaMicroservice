@@ -1,9 +1,9 @@
 import Cookies from 'js-cookie';
-import apiService from "../utils/api";
+import apiService from "../lib/api/api";
 import {LoginResponseDto} from "../models/LoginResponseDto";
 import {globalActions, useGlobalState} from "../context/GlobalStateContext";
 import {useState} from "react";
-import {LoginRequest} from "../utils/validators/login-schema";
+import {LoginRequest} from "../schema/login-schema";
 import {environment} from "../environment";
 
 const getErrorMsg = (statusCode: number): string => {
@@ -26,6 +26,8 @@ export const useAuth = () => {
     async function login(loginRequest: LoginRequest) {
         // Perform login API request and obtain JWT token
         setErrorMsg("")
+        dispatch(globalActions.removeUser())
+
         try {
             const response = await apiService.post<LoginRequest, LoginResponseDto>("/auth/login", loginRequest)
 

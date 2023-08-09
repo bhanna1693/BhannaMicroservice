@@ -1,7 +1,7 @@
 import React from 'react';
 import {useFormik} from "formik";
-import {LoginRequest, loginSchema} from "../utils/validators/login-schema";
-import {useAuth} from "../services/auth.service";
+import {LoginRequest, loginSchema} from "../../schema/login-schema";
+import {useAuth} from "../../services/auth.service";
 import {useLocation, useNavigate} from "react-router-dom";
 
 export const SignInPage = () => {

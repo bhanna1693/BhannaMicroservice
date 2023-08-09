@@ -2,7 +2,7 @@
 
 // Define base URL for your API
 import Cookies from "js-cookie";
-import {environment} from "../environment";
+import {environment} from "../../environment";
 
 type ApiResponse<T> = {
     data: T;
@@ -10,7 +10,7 @@ type ApiResponse<T> = {
 };
 
 // Generic function to make a GET request
-async function get<T = any>(url: string): Promise<ApiResponse<T>> {
+async function get<T = any>(url: string, queryParams?: { [k: string]: any }): Promise<T> {
     try {
         const token = Cookies.get(environment.MY_COOKIE)
         const headers: { [k: string]: string } = {
@@ -20,12 +20,22 @@ async function get<T = any>(url: string): Promise<ApiResponse<T>> {
             headers["Authorization"] = "Bearer " + token
         }
 
-        const response = await fetch(`${environment.BASE_URL}${url}`, {
-            headers: headers
+        url = url.includes("mock") ? url : environment.BASE_URL + url
+        if (queryParams) {
+            const qp = new URLSearchParams();
+            Object.keys(queryParams).forEach(key => qp.append(key, queryParams[key]))
+            url = `${url}?${qp.toString()}`
+        }
+
+        const response = await fetch(url, {
+            headers: headers,
         });
 
-        const data = await response.json();
-        return { data, status: response.status };
+        if (!response.ok) {
+            throw new Error('Error fetching data');
+        }
+
+        return response.json();
     } catch (error) {
         console.error("Fetch error:", error)
         throw error
@@ -50,7 +60,7 @@ async function post<T = any, R = any>(url: string, body: T): Promise<ApiResponse
         });
 
         const data = await response.json();
-        return { data, status: response.status };
+        return {data, status: response.status};
     } catch (error) {
         console.error("Fetch error:", error)
         throw error

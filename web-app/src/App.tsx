@@ -4,6 +4,8 @@ import {Outlet} from "react-router-dom";
 import Navbar from "./components/Navbar";
 import {GlobalStateProvider} from "./context/GlobalStateContext";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
 
 const queryClient = new QueryClient();
 
@@ -14,6 +16,7 @@ function App() {
                 <Navbar/>
                 <Outlet/>
             </GlobalStateProvider>
+            <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
     );
 }

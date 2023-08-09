@@ -6,12 +6,14 @@ import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import ErrorPage from "./pages/Error";
 import {AboutPage} from "./pages/About";
-import {HappyHourPage} from "./pages/HappyHour";
+import {HappyHourPage} from "./pages/happyhour";
 import {PokemonPage} from "./pages/Pokemon";
-import {SignInPage} from "./pages/SignIn";
-import {SignupPage} from "./pages/SignUp";
+import {SignInPage} from "./pages/auth/SignIn";
+import {SignupPage} from "./pages/auth/SignUp";
 import {HomePage} from "./pages/Home";
 import PrivateRoute from "./components/PrivateRoute";
+import {HappyHourDetailsPage} from "./pages/happyhour/[yelpId]";
+import {HappyHourSearchPage} from "./pages/happyhour/HappyHourSearch";
 
 const router = createBrowserRouter([
     {
@@ -20,7 +22,7 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage/>,
         children: [
             {
-                path: "/",
+                path: "",
                 element: <HomePage/>
             },
             {
@@ -29,11 +31,21 @@ const router = createBrowserRouter([
             },
             {
                 path: "happyhour",
-                element: <PrivateRoute><HappyHourPage/></PrivateRoute>
+                element: <PrivateRoute><HappyHourPage/></PrivateRoute>,
+                children: [
+                    {
+                        path: "",
+                        element: <PrivateRoute><HappyHourSearchPage/></PrivateRoute>,
+                    },
+                    {
+                        path: ":yelpId",
+                        element: <PrivateRoute><HappyHourDetailsPage/></PrivateRoute>
+                    },
+                ]
             },
             {
                 path: "pokemon",
-                element: <PokemonPage/>
+                element: <PrivateRoute><PokemonPage/></PrivateRoute>
             },
             {
                 path: "auth",
