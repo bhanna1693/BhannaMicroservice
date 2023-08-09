@@ -1,5 +1,4 @@
-import {Business} from "./Business";
-import {LocalDateTime} from "./util";
+import {Business} from "./business";
 
 export enum SpecialType {
     FOOD = "FOOD",
@@ -8,18 +7,11 @@ export enum SpecialType {
 
 export interface SpecialDetail {
     id: string;
-
-    business: Business;
-
+    business: Business; // Reference to Business type
     type: SpecialType;
-
     day: string;
-
     time: string;
-
     details: string;
-
-    createdAt: LocalDateTime;
-
-    updatedAt: LocalDateTime;
+    createdAt: string;
+    updatedAt: string;
 }

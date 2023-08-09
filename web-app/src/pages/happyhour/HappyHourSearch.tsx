@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {Link, useSearchParams} from "react-router-dom";
 import {ErrorMessage, Field, Form, Formik} from "formik";
-import {HappyHourSearch, happyHourSearchSchema} from "../../schema/happy-hour-search-schema";
-import useBusinessesQuery from "../../services/happyhour/businesses.service";
+import {HappyHourSearch, happyHourSearchSchema} from "../../schemas/happy-hour-search-schema";
+import useGetCompositeBusinessesQuery from "../../api/happyhour/get-composite-businesses";
 
 export const HappyHourSearchPage = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -18,7 +18,7 @@ export const HappyHourSearchPage = () => {
         })
     }, [searchParams])
 
-    const {data} = useBusinessesQuery(formState, happyHourSearchSchema.isValidSync(formState))
+    const {data} = useGetCompositeBusinessesQuery(formState, happyHourSearchSchema.isValidSync(formState))
     const onSubmit = (values: HappyHourSearch) => {
         // Handle form submission
         setSearchParams(values)
@@ -29,7 +29,7 @@ export const HappyHourSearchPage = () => {
             <div className="flex justify-center py-5">
                 <Formik initialValues={formState}
                         validationSchema={happyHourSearchSchema}
-                        onSubmit={(values) => onSubmit(values)}>
+                        onSubmit={onSubmit}>
                     <Form>
                         <div className="join">
                             <div>

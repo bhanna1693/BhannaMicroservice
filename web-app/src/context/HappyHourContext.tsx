@@ -1,13 +1,12 @@
 import React, {createContext, ReactNode, useContext, useReducer} from 'react';
-import {Business} from "../models/Business";
-import {HappyHourSearch} from "../schema/happy-hour-search-schema";
-import {Nullable} from "../models/util";
+import {Business} from "../models/business";
+import {HappyHourSearch} from "../schemas/happy-hour-search-schema";
 
 
 interface HappyHourState {
     formState: HappyHourSearch;
     businesses: Business[];
-    selectedBusiness: Nullable<Business>;
+    selectedBusiness: Business | null;
 }
 
 const enum ActionTypes {

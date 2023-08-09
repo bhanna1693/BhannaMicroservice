@@ -1,11 +1,11 @@
 import React from 'react';
 import {useFormik} from "formik";
-import {LoginRequest, loginSchema} from "../../schema/login-schema";
-import {useAuth} from "../../services/auth.service";
+import {LoginRequest, loginSchema} from "../../schemas/login-schema";
 import {useLocation, useNavigate} from "react-router-dom";
+import useSignIn from "../../api/auth/sign-in";
 
 export const SignInPage = () => {
-    const {errorMsg, login} = useAuth()
+    const {mutateAsync, error, isError} = useSignIn()
     const navigate = useNavigate()
     const location = useLocation();
 
@@ -16,14 +16,14 @@ export const SignInPage = () => {
             password: '',
         },
         validationSchema: loginSchema,
-        onSubmit: (async (values) => {
+        onSubmit: async (values) => {
             // Handle form submission
-            await login(values)
-            if (!errorMsg) {
+            await mutateAsync(values)
+            if (!isError) {
                 const previousPath = location.state?.from?.pathname;
                 navigate(previousPath ?? "/", {replace: true});
             }
-        }),
+        },
     });
 
     return (
@@ -59,7 +59,8 @@ export const SignInPage = () => {
                             <div className={"text-error"}>{loginForm.errors.password}</div> : null}
                     </div>
                     <div className={"text-error"}>
-                        {errorMsg ? errorMsg : null}
+                        {/* @ts-ignore */}
+                        {isError ? error : null}
                     </div>
                     <div className={"card-actions mt-5"}>
                         <button

@@ -1,6 +1,6 @@
 // GlobalStateContext.tsx
 import React, {createContext, useContext, useReducer, ReactNode} from 'react';
-import {User} from "../models/User";
+import {User} from "../models/user";
 
 interface GlobalState {
     isLoggedIn: boolean;

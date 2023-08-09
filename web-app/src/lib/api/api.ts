@@ -1,13 +1,5 @@
-// apiService.ts
-
-// Define base URL for your API
 import Cookies from "js-cookie";
 import {environment} from "../../environment";
-
-type ApiResponse<T> = {
-    data: T;
-    status: number;
-};
 
 // Generic function to make a GET request
 async function get<T = any>(url: string, queryParams?: { [k: string]: any }): Promise<T> {
@@ -31,10 +23,6 @@ async function get<T = any>(url: string, queryParams?: { [k: string]: any }): Pr
             headers: headers,
         });
 
-        if (!response.ok) {
-            throw new Error('Error fetching data');
-        }
-
         return response.json();
     } catch (error) {
         console.error("Fetch error:", error)
@@ -43,7 +31,7 @@ async function get<T = any>(url: string, queryParams?: { [k: string]: any }): Pr
 }
 
 // Generic function to make a POST request
-async function post<T = any, R = any>(url: string, body: T): Promise<ApiResponse<R>> {
+async function post<T = any, R = any>(url: string, body: T): Promise<R> {
     try {
         const token = Cookies.get(environment.MY_COOKIE)
         const headers: { [k: string]: string } = {
@@ -59,8 +47,7 @@ async function post<T = any, R = any>(url: string, body: T): Promise<ApiResponse
             body: JSON.stringify(body),
         });
 
-        const data = await response.json();
-        return {data, status: response.status};
+        return await response.json();
     } catch (error) {
         console.error("Fetch error:", error)
         throw error
