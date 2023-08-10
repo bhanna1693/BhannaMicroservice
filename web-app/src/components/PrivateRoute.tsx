@@ -1,8 +1,9 @@
 import {Navigate, useLocation} from "react-router-dom";
 import {useGlobalState} from "../context/GlobalStateContext";
 import {environment} from "../environment";
+import React, {ReactElement} from "react";
 
-const PrivateRoute = ({children}: { children: JSX.Element }) => {
+const PrivateRoute: React.FC<{ children: ReactElement }> = ({children}) => {
     const {state} = useGlobalState();
     let location = useLocation();
 

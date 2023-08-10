@@ -1,64 +1,99 @@
-import React from "react";
-import {useParams, useSearchParams} from "react-router-dom";
+import React, {ReactElement, useState} from "react";
+import {useParams} from "react-router-dom";
 import useGetBusinessByYelpIdQuery from "../../api/happyhour/get-business-by-yelpId";
-import {ErrorMessage, Field, Form, Formik} from "formik";
-import {CheckForSpecials, checkForSpecialsSchema} from "../../schemas/check-for-specials-schema";
+import {ErrorMessage, Field, Form, Formik, useFormikContext} from "formik";
+import {CreateBusinessRequest, createBusinessRequestSchema} from "../../schemas/create-business-request-schema";
+import useCreateOrUpdateBusiness from "../../api/happyhour/post-business";
+
+const ErrorsDisplay = () => {
+    const {errors} = useFormikContext<CreateBusinessRequest>();
+
+    const errorKeys = (Object.keys(errors) as [keyof CreateBusinessRequest])
+        .filter(key => key !== "businessUrl");
+
+    if (errorKeys.length > 0) {
+        return (
+            <div className="text-error">
+                {errorKeys.map((key) => (
+                    <div key={key}>{errors[key]}</div>
+                ))}
+            </div>
+        );
+    }
+
+    return null;
+};
 
 interface CheckForSpecialsButtonGroupProps {
-    onClick: (values: CheckForSpecials) => void,
-    url?: string
+    onClick: (values: CreateBusinessRequest) => void,
+    initialValues: CreateBusinessRequest
 }
 
-function CheckForSpecialsButtonAction({url, onClick}: CheckForSpecialsButtonGroupProps) {
+const CheckForSpecialsButtonAction: React.FunctionComponent<CheckForSpecialsButtonGroupProps> = ({
+                                                                                                     initialValues,
+                                                                                                     onClick
+                                                                                                 }) => {
 
-    const handleSubmit = (values: CheckForSpecials) => {
+    const handleSubmit = (values: CreateBusinessRequest) => {
         onClick(values)
     };
 
     return <>
-        <Formik initialValues={{url: url || ""}}
-                validationSchema={checkForSpecialsSchema}
+        <Formik initialValues={initialValues}
+                validationSchema={createBusinessRequestSchema}
                 onSubmit={handleSubmit}>
             <Form>
                 <div className="join">
                     <div>
                         <div>
-                            <Field id={"url"} name={"url"} type={"url"}
+                            <Field id={"businessUrl"} name={"businessUrl"} type={"businessUrl"}
                                    className="input input-bordered join-item"
                                    placeholder="https://restaurant.com/specials"/>
                         </div>
-                        <ErrorMessage name={"url"}/>
+                        <ErrorMessage name={"businessUrl"}/>
                     </div>
 
                     <div className="indicator">
-                        <button className="btn join-item" type={"submit"}>Click to check for specials</button>
+                        <button className="btn btn-primary join-item" type={"submit"}>Click to check for specials
+                        </button>
                     </div>
+                </div>
+                <div>
+                    <ErrorsDisplay/>
                 </div>
             </Form>
         </Formik>
     </>;
-}
+};
 
-function NewBusiness(props: { onClick: () => void }) {
-    const [searchParams] = useSearchParams()
+const NewBusiness: React.FunctionComponent<{ children: ReactElement, businessName: string }> = ({
+                                                                                                    children,
+                                                                                                    businessName
+                                                                                                }) => {
 
     return <div>
-        <h1>We've never checked specials for {searchParams.get("yelpName")}</h1>
+        <h1>We've never checked specials for {businessName}</h1>
         <h3>Would you like us to check?</h3>
-        <h3>Please provide the website url where we can find the specials for {searchParams.get("yelpName")}</h3>
+        <h3>Please provide the website url where we can find the specials for {businessName}</h3>
         <h4>Be as specific as possible! We can only find what is found on that page.</h4>
 
-        <CheckForSpecialsButtonAction onClick={props.onClick}/>
+        {children}
     </div>;
-}
+};
 
 export const HappyHourDetailsPage = () => {
-    const {yelpId} = useParams()
+    const {yelpId, yelpName} = useParams()
 
     const {data: business} = useGetBusinessByYelpIdQuery(yelpId!!, true)
+    const {mutateAsync} = useCreateOrUpdateBusiness()
+    const [createBusinessRequestState] = useState<CreateBusinessRequest>({
+        businessName: yelpName!!,
+        businessUrl: "",
+        yelpId: yelpId!!
+    })
 
-    const handleCheckForSpecialsClick = () => {
-
+    const handleCheckForSpecialsClick = async (values: CreateBusinessRequest) => {
+        await mutateAsync(values)
     };
 
     function hasCheckedForSpecialsToday() {
@@ -67,7 +102,10 @@ export const HappyHourDetailsPage = () => {
 
     if (!business) {
         // New business
-        return <NewBusiness onClick={handleCheckForSpecialsClick}/>
+        return <NewBusiness businessName={yelpName!!}>
+            <CheckForSpecialsButtonAction initialValues={createBusinessRequestState}
+                                          onClick={handleCheckForSpecialsClick}/>
+        </NewBusiness>
     } else {
         // existing business
         return <>
@@ -81,7 +119,8 @@ export const HappyHourDetailsPage = () => {
                 <div>
                     <h1>We cannot seem to get specials for {business.name}</h1>
                     <p>Try again?</p>
-                    <CheckForSpecialsButtonAction onClick={handleCheckForSpecialsClick}/>
+                    <CheckForSpecialsButtonAction initialValues={createBusinessRequestState}
+                                                  onClick={handleCheckForSpecialsClick}/>
                 </div>
             ) : business.specialDetailList?.length ? (
                 // Specials exist
@@ -102,7 +141,8 @@ export const HappyHourDetailsPage = () => {
                     {!hasCheckedForSpecialsToday() && (
                         <div>
                             <h2>Last checked: {business.lastCheckForSpecials}</h2>
-                            <CheckForSpecialsButtonAction onClick={handleCheckForSpecialsClick}/>
+                            <CheckForSpecialsButtonAction initialValues={createBusinessRequestState}
+                                                          onClick={handleCheckForSpecialsClick}/>
                         </div>
                     )}
                 </div>
@@ -114,7 +154,8 @@ export const HappyHourDetailsPage = () => {
 
                     {!hasCheckedForSpecialsToday() ? (
                         <div>
-                            <CheckForSpecialsButtonAction onClick={handleCheckForSpecialsClick}/>
+                            <CheckForSpecialsButtonAction initialValues={createBusinessRequestState}
+                                                          onClick={handleCheckForSpecialsClick}/>
                         </div>
                     ) : (
                         <h3>Already checked for specials today. Try again tomorrow.</h3>

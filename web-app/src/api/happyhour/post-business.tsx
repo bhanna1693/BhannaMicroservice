@@ -1,28 +1,34 @@
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {Business} from "../../models/business";
 import apiService from "../../lib/api/api";
-import {CreateBusinessRequest} from "../../models/create-business-request";
+import {CreateBusinessRequest} from "../../schemas/create-business-request-schema";
+import {CompositeBusinessDto} from "../../models/composite-business-dto";
 
 const createOrUpdateBusiness = async (req: CreateBusinessRequest): Promise<Business> => {
     return await apiService.post<CreateBusinessRequest, Business>("/business", req);
 }
 
-const useCreateOrUpdateBusiness = (req: CreateBusinessRequest) => {
+const useCreateOrUpdateBusiness = () => {
     const client = useQueryClient()
-    const businessesQueryKey: string[] = ['businesses', ...Object.values({key: ""})]
-    const businessQueryKey: string[] = ['business', req.yelpBusiness.id]
 
     return useMutation({
-        mutationFn: () => createOrUpdateBusiness(req),
+        mutationFn: (req: CreateBusinessRequest) => createOrUpdateBusiness(req),
         onSuccess: (result) => {
-            client.setQueryData<CompositeBusinessDto[]>(businessesQueryKey, (old) => {
-                return old?.map((b) => {
-                    if (b.yelpBusiness.id === result.yelpId) {
-                        b.business = result
-                    }
-                    return b
+            const businessQueryKey: string[] = ['business', result.yelpId]
+            const businessesQueryKey = client.getQueryCache().getAll()
+                .map(query => query.queryKey)
+                .find(queryKey => queryKey[0] === "businesses")
+
+            if (businessesQueryKey) {
+                client.setQueryData<CompositeBusinessDto[]>(businessesQueryKey, (old) => {
+                    return old?.map((b) => {
+                        if (b.yelpBusiness.id === result.yelpId) {
+                            b.business = result
+                        }
+                        return b
+                    })
                 })
-            })
+            }
             client.setQueryData<Business>(businessQueryKey, () => result)
         }
     })

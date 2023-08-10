@@ -38,7 +38,7 @@ const router = createBrowserRouter([
                         element: <PrivateRoute><HappyHourSearchPage/></PrivateRoute>,
                     },
                     {
-                        path: ":yelpId",
+                        path: ":yelpId/:yelpName",
                         element: <PrivateRoute><HappyHourDetailsPage/></PrivateRoute>
                     },
                 ]

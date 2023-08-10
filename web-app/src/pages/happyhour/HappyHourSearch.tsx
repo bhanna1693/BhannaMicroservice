@@ -64,7 +64,10 @@ export const HappyHourSearchPage = () => {
 
             <ul>
                 {data?.map((b) => {
-                    return <li key={b.yelpId}><Link to={`/happyhour/${b.yelpId}`}>{b.name} -- {b.yelpId} -- {b.id}</Link>
+                    return <li key={b.yelpBusiness.id}>
+                        <Link to={`/happyhour/${b.yelpBusiness.id}/${b.yelpBusiness.name}`}>
+                            {b.yelpBusiness.name} -- {b.yelpBusiness.id} -- {b.business?.id ?? "Business not yet added"}
+                        </Link>
                     </li>
                 })}
             </ul>
