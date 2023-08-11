@@ -13,6 +13,7 @@ const useGetCompositeBusinessesQuery = (search: HappyHourSearch, enabled: boolea
         queryKey: queryKey,
         queryFn: () => fetchCompositeBusinesses(search),
         enabled: enabled,
+        refetchOnMount: query => query.isStale()
     })
 }
 
