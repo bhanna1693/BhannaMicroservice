@@ -1,6 +1,6 @@
 import React, {FunctionComponent} from "react";
 import {CompositeBusinessDto} from "../../models/composite-business-dto";
-import HappyHourCardActions from "./[yelpId]/HappyHourCardActions";
+import HappyHourCardActions from "./HappyHourCardActions";
 
 const HappyHourCard: FunctionComponent<{ b: CompositeBusinessDto }> = ({b}) => {
 

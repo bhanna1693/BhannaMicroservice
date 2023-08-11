@@ -50,13 +50,13 @@ export const HappyHourDetailsPage = () => {
     if (!business) {
         // New business
         return <NewBusiness businessName={yelpName!}>
-            <CheckForSpecialsButtonAction businessUrl={""}
+            <CheckForSpecialsButtonAction isLoading={false} businessUrl={""}
                                           onClick={handleCreateNewBusiness}/>
         </NewBusiness>
     }
 
     return <ExistingBusiness business={business}>
-        <CheckForSpecialsButtonAction businessUrl={business.website}
+        <CheckForSpecialsButtonAction isLoading={false} businessUrl={business.website}
                                       onClick={handleUpdateBusiness}/>
     </ExistingBusiness>
 }

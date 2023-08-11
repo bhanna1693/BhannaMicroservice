@@ -38,7 +38,8 @@ async function get<T = any>(url: string, options: RequestOptions = {}): Promise<
     });
 
     if (!response.ok) {
-        throw new HttpError(response.status, response.statusText);
+        const error = await response.json()
+        throw new HttpError(response.status, response.statusText, error?.message);
     }
 
     return response.json();
@@ -59,7 +60,8 @@ async function post<T = any, R = any>(url: string, body: T, options: RequestOpti
     });
 
     if (!response.ok) {
-        throw new HttpError(response.status, response.statusText);
+        const error = await response.json()
+        throw new HttpError(response.status, response.statusText, error?.message);
     }
 
     return response.json();

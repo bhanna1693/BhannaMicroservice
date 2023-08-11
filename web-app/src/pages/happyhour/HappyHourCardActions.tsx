@@ -1,16 +1,16 @@
 import React, {FunctionComponent, useEffect, useState} from "react";
-import {CompositeBusinessDto} from "../../../models/composite-business-dto";
+import {CompositeBusinessDto} from "../../models/composite-business-dto";
 import {Link} from "react-router-dom";
-import {CheckForSpecialsButtonAction} from "./CheckForSpecialsButtonAction";
-import {Business, SpecialCheckStatus} from "../../../models/business";
-import useCreateBusiness from "../../../api/happyhour/create-business";
-import useUpdateBusiness, {updateBusinessesQueryCache} from "../../../api/happyhour/update-business";
-import useGetBusinessByYelpIdQuery from "../../../api/happyhour/get-business-by-yelpId";
+import {CheckForSpecialsButtonAction} from "./[yelpId]/CheckForSpecialsButtonAction";
+import {Business, SpecialCheckStatus} from "../../models/business";
+import useCreateBusiness from "../../api/happyhour/create-business";
+import useUpdateBusiness, {updateBusinessesQueryCache} from "../../api/happyhour/update-business";
+import useGetBusinessByYelpIdQuery from "../../api/happyhour/get-business-by-yelpId";
 import {useQueryClient} from "@tanstack/react-query";
 
 const HappyHourCardActions: FunctionComponent<{ b: CompositeBusinessDto }> = ({b}) => {
-    const {mutateAsync: createBusiness} = useCreateBusiness()
-    const {mutateAsync: updateBusiness} = useUpdateBusiness()
+    const {mutateAsync: createBusiness, isLoading: isCreating} = useCreateBusiness()
+    const {mutateAsync: updateBusiness, error: updateBusinessError, isLoading: isUpdating, isError: isUpdatingError} = useUpdateBusiness()
     const [isPending, setIsPending] = useState(false)
     const {data} = useGetBusinessByYelpIdQuery(b.yelpBusiness.id, false, isPending)
     const client = useQueryClient()
@@ -47,8 +47,16 @@ const HappyHourCardActions: FunctionComponent<{ b: CompositeBusinessDto }> = ({b
             case SpecialCheckStatus.FAILED:
                 return <div className={"text-center"}>
                     <h3 className={"text-error"}>We failed to get specials for <br/> {b.business.name}</h3>
-                    <p>Try again?</p>
-                    <CheckForSpecialsButtonAction businessUrl={b.business.website}
+
+                    {isUpdatingError ? (
+                        // @ts-ignore
+                        <p>{updateBusinessError.message}</p>
+                    ) : (
+                        <p>Try again?</p>
+                    )}
+
+                    <CheckForSpecialsButtonAction isLoading={isUpdating}
+                                                  businessUrl={b.business.website}
                                                   onClick={(businessUrl) => handleUpdateBusiness(businessUrl, b.business!)}/>
                 </div>
             case SpecialCheckStatus.COMPLETED:
@@ -63,13 +71,15 @@ const HappyHourCardActions: FunctionComponent<{ b: CompositeBusinessDto }> = ({b
             case SpecialCheckStatus.INITIAL:
                 return <div>
                     <h1>We are aware of this business but have not checked for specials.</h1>
-                    <CheckForSpecialsButtonAction businessUrl={b.business.website}
+                    <CheckForSpecialsButtonAction isLoading={isUpdating}
+                                                  businessUrl={b.business.website}
                                                   onClick={(businessUrl) => handleUpdateBusiness(businessUrl, b.business!)}/>
                 </div>
         }
     }
 
-    return <CheckForSpecialsButtonAction businessUrl={""}
+    return <CheckForSpecialsButtonAction isLoading={isCreating}
+                                         businessUrl={""}
                                          onClick={(businessUrl) => createAndUpdateBusiness(businessUrl, b)}/>
 }
 

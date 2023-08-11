@@ -4,12 +4,14 @@ import {ErrorMessage, Field, Form, Formik} from "formik";
 
 interface CheckForSpecialsButtonGroupProps {
     onClick: (businessUrl: string) => void,
-    businessUrl: string
+    businessUrl: string,
+    isLoading: boolean
 }
 
 export const CheckForSpecialsButtonAction: React.FunctionComponent<CheckForSpecialsButtonGroupProps> = ({
                                                                                                             businessUrl,
-                                                                                                            onClick
+                                                                                                            onClick,
+                                                                                                            isLoading
                                                                                                         }) => {
 
     const validationSchema = yup.object().shape({
@@ -28,7 +30,8 @@ export const CheckForSpecialsButtonAction: React.FunctionComponent<CheckForSpeci
                 <div className="text-center">
                     <div>
                         <div>
-                            <label className="label-text" htmlFor={"businessUrl"}>Enter business URL where specials are located</label>
+                            <label className="label-text" htmlFor={"businessUrl"}>Enter business URL where specials are
+                                located</label>
                             <Field id={"businessUrl"} name={"businessUrl"} type={"businessUrl"}
                                    className="input input-bordered w-full max-w-md"
                                    placeholder="https://restaurant.com/specials"/>
@@ -37,7 +40,12 @@ export const CheckForSpecialsButtonAction: React.FunctionComponent<CheckForSpeci
                     </div>
 
                     <div className="pt-5">
-                        <button className="btn btn-primary" type={"submit"}>Click to check for specials</button>
+                        <button type="submit" className={"btn btn-primary"} disabled={isLoading}>
+                            Click to check for specials
+                            {isLoading ?? (
+                                <span className="loading loading-bars loading-xs"></span>
+                            )}
+                        </button>
                     </div>
                 </div>
             </Form>
