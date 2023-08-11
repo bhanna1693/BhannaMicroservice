@@ -4,7 +4,7 @@ import {HappyHourSearch} from "../../schemas/happy-hour-search-schema";
 import {CompositeBusinessDto} from "../../models/composite-business-dto";
 
 const fetchCompositeBusinesses = async (search: HappyHourSearch): Promise<CompositeBusinessDto[]> => {
-    return await apiService.get<CompositeBusinessDto[]>("/yelp/businesses/search", search);
+    return await apiService.get<CompositeBusinessDto[]>("/yelp/businesses/search", {queryParams: search});
 }
 
 const useGetCompositeBusinessesQuery = (search: HappyHourSearch, enabled: boolean = true) => {

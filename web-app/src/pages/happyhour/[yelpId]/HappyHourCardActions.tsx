@@ -1,40 +1,55 @@
-import React, {FunctionComponent} from "react";
+import React, {FunctionComponent, useEffect, useState} from "react";
 import {CompositeBusinessDto} from "../../../models/composite-business-dto";
 import {Link} from "react-router-dom";
 import {CheckForSpecialsButtonAction} from "./CheckForSpecialsButtonAction";
 import {Business, SpecialCheckStatus} from "../../../models/business";
 import useCreateBusiness from "../../../api/happyhour/create-business";
-import useUpdateBusiness from "../../../api/happyhour/update-business";
+import useUpdateBusiness, {updateBusinessesQueryCache} from "../../../api/happyhour/update-business";
+import useGetBusinessByYelpIdQuery from "../../../api/happyhour/get-business-by-yelpId";
+import {useQueryClient} from "@tanstack/react-query";
 
 const HappyHourCardActions: FunctionComponent<{ b: CompositeBusinessDto }> = ({b}) => {
-    const {mutateAsync: createBusiness, isLoading: isCreatingBusiness, isError: errorCreatingBusiness} = useCreateBusiness()
-    const {mutate: updateBusiness, isLoading: isUpdatingBusiness, isError: errorUpdatingBusiness} = useUpdateBusiness()
+    const {mutateAsync: createBusiness} = useCreateBusiness()
+    const {mutateAsync: updateBusiness} = useUpdateBusiness()
+    const [isPending, setIsPending] = useState(false)
+    const {data} = useGetBusinessByYelpIdQuery(b.yelpBusiness.id, false, isPending)
+    const client = useQueryClient()
 
-    const handleUpdateBusiness = (businessUrl: string, business: Business) => {
+    useEffect(() => {
+        setIsPending(data?.specialCheckStatus === SpecialCheckStatus.PENDING)
+    }, [data?.specialCheckStatus]);
+
+    useEffect(() => {
+        if (data) {
+            updateBusinessesQueryCache(client, data)
+        }
+    }, [client, data]);
+
+    const handleUpdateBusiness = async (businessUrl: string, business: Business) => {
         updateBusiness({
             businessUrl: businessUrl,
             businessId: business.id
-        })
+        }).then(() => setIsPending(true))
+            .catch(() => setIsPending(false))
     };
 
     const createAndUpdateBusiness = async (businessUrl: string, b: CompositeBusinessDto) => {
-        const business = await createBusiness({
+        createBusiness({
             businessUrl: businessUrl,
-            businessName: b.yelpBusiness.name!!,
+            businessName: b.yelpBusiness.name!,
             yelpId: b.yelpBusiness.id
-        })
-
-        handleUpdateBusiness(businessUrl, business)
+        }).then(b => handleUpdateBusiness(businessUrl, b))
+            .catch(() => null)
     };
 
     if (b.business) {
         switch (b.business.specialCheckStatus) {
             case SpecialCheckStatus.FAILED:
                 return <div className={"text-center"}>
-                    <h1>We failed to get specials for <br/> {b.business.name}</h1>
+                    <h3 className={"text-error"}>We failed to get specials for <br/> {b.business.name}</h3>
                     <p>Try again?</p>
                     <CheckForSpecialsButtonAction businessUrl={b.business.website}
-                                                  onClick={(businessUrl) => handleUpdateBusiness(businessUrl, b.business!!)}/>
+                                                  onClick={(businessUrl) => handleUpdateBusiness(businessUrl, b.business!)}/>
                 </div>
             case SpecialCheckStatus.COMPLETED:
                 return <Link className={"btn btn-primary"}
@@ -49,7 +64,7 @@ const HappyHourCardActions: FunctionComponent<{ b: CompositeBusinessDto }> = ({b
                 return <div>
                     <h1>We are aware of this business but have not checked for specials.</h1>
                     <CheckForSpecialsButtonAction businessUrl={b.business.website}
-                                                  onClick={(businessUrl) => handleUpdateBusiness(businessUrl, b.business!!)}/>
+                                                  onClick={(businessUrl) => handleUpdateBusiness(businessUrl, b.business!)}/>
                 </div>
         }
     }

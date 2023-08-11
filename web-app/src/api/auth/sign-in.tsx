@@ -24,7 +24,7 @@ const useSignIn = () => {
         onSuccess: (result) => {
             const jwtToken = result.result.token; // Extract the JWT token from the response
             // Store the JWT token in a secure cookie
-            Cookies.set(environment.MY_COOKIE!!, jwtToken, {secure: true, httpOnly: true});
+            Cookies.set(environment.MY_COOKIE!, jwtToken, {secure: true, httpOnly: true});
             dispatch(globalActions.setUser(result.result.user))
         },
         onError: () => {

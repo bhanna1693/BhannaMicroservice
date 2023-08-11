@@ -66,7 +66,14 @@ export const HappyHourSearchPage = () => {
                 </Formik>
             </div>
 
-            {data?.map((b) => <HappyHourCard b={b}/>)}
+            {!data ? (
+                <h3>Start by adding a location and searching for a business</h3>
+            ) : (
+                <>
+                    <h3>Results found: {data.length}</h3>
+                    {data.map((b) => <HappyHourCard b={b} key={b.yelpBusiness.id}/>)}
+                </>
+            )}
         </>
     )
 }

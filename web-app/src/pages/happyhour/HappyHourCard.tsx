@@ -15,6 +15,8 @@ const HappyHourCard: FunctionComponent<{ b: CompositeBusinessDto }> = ({b}) => {
                 {b.yelpBusiness.categories.map(c => c.title).join(", ")}
                 <br/>
                 {b.yelpBusiness.is_closed ? "Closed :(" : "Open :)"}
+                <br/>
+                {b.yelpBusiness.location.display_address.join(", ")}
             </p>
             <div className="card-actions justify-end">
                 <HappyHourCardActions b={b} />

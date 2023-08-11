@@ -12,7 +12,7 @@ export const HappyHourDetailsPage = () => {
     const {yelpId, yelpName} = useParams()
     // const [business, setBusiness] = useState<Business>()
 
-    const {data: business, isLoading: isGettingBusiness, isError: errorGettingBusiness} = useGetBusinessByYelpIdQuery(yelpId!!, true)
+    const {data: business, isLoading: isGettingBusiness, isError: errorGettingBusiness} = useGetBusinessByYelpIdQuery(yelpId!, true, true)
     const {mutateAsync: createBusiness, isLoading: isCreatingBusiness, isError: errorCreatingBusiness} = useCreateBusiness()
     const {mutate: updateBusiness, isLoading: isUpdatingBusiness, isError: errorUpdatingBusiness} = useUpdateBusiness()
 
@@ -23,15 +23,15 @@ export const HappyHourDetailsPage = () => {
     const handleUpdateBusiness = (businessUrl: string) => {
         updateBusiness({
             businessUrl: businessUrl,
-            businessId: business?.id!!
+            businessId: business?.id!
         })
     };
 
     const handleCreateNewBusiness = async (businessUrl: string) => {
         await createBusiness({
             businessUrl: businessUrl,
-            businessName: yelpName!!,
-            yelpId: yelpId!!
+            businessName: yelpName!,
+            yelpId: yelpId!
         })
 
         handleUpdateBusiness(businessUrl)
@@ -49,7 +49,7 @@ export const HappyHourDetailsPage = () => {
 
     if (!business) {
         // New business
-        return <NewBusiness businessName={yelpName!!}>
+        return <NewBusiness businessName={yelpName!}>
             <CheckForSpecialsButtonAction businessUrl={""}
                                           onClick={handleCreateNewBusiness}/>
         </NewBusiness>
