@@ -23,6 +23,10 @@ async function get<T = any>(url: string, queryParams?: { [k: string]: any }): Pr
             headers: headers,
         });
 
+        if (!response.ok) {
+            throw new Error("Fetch error " + response.status)
+        }
+
         return response.json();
     } catch (error) {
         console.error("Fetch error:", error)
@@ -46,6 +50,10 @@ async function post<T = any, R = any>(url: string, body: T): Promise<R> {
             headers: headers,
             body: JSON.stringify(body),
         });
+
+        if (!response.ok) {
+            throw new Error("Fetch error " + response.status)
+        }
 
         return await response.json();
     } catch (error) {

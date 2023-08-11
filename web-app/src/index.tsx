@@ -12,8 +12,8 @@ import {SignInPage} from "./pages/auth/SignIn";
 import {SignupPage} from "./pages/auth/SignUp";
 import {HomePage} from "./pages/Home";
 import PrivateRoute from "./components/PrivateRoute";
-import {HappyHourDetailsPage} from "./pages/happyhour/[yelpId]";
 import {HappyHourSearchPage} from "./pages/happyhour/HappyHourSearch";
+import {HappyHourDetailsPage} from "./pages/happyhour/[yelpId]/[yelpName]";
 
 const router = createBrowserRouter([
     {

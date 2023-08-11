@@ -1,13 +1,12 @@
-import React, {ReactNode} from 'react';
-import styles from './PageLayout.module.css'; // Import the scoped CSS module
+import {FunctionComponent, ReactNode} from "react";
 
 interface LayoutProps {
     children: ReactNode;
 }
 
-const Layout: React.FC<LayoutProps> = ({children}) => {
+const Layout: FunctionComponent<LayoutProps> = ({children}) => {
     return (
-        <div className={styles.layout}>
+        <div className={"container mx-auto pt-5 prose"}>
             {children}
         </div>
     );

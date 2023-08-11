@@ -9,9 +9,9 @@ export interface SpecialDetail {
     id: string;
     business: Business; // Reference to Business type
     type: SpecialType;
-    day: string;
-    time: string;
-    details: string;
+    daysOfTheWeek: string;
+    operatingHours: string;
+    description: string;
     createdAt: string;
     updatedAt: string;
 }

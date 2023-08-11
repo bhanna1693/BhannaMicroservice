@@ -1,18 +1,18 @@
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {Business} from "../../models/business";
 import apiService from "../../lib/api/api";
-import {CreateBusinessRequest} from "../../schemas/create-business-request-schema";
 import {CompositeBusinessDto} from "../../models/composite-business-dto";
+import {UpdateBusinessRequest} from "../../schemas/update-business-request-schema";
 
-const createOrUpdateBusiness = async (req: CreateBusinessRequest): Promise<Business> => {
-    return await apiService.post<CreateBusinessRequest, Business>("/business", req);
+const updateBusiness = async (req: UpdateBusinessRequest): Promise<Business> => {
+    return await apiService.post<UpdateBusinessRequest, Business>(`/business/${req.businessId}`, req);
 }
 
-const useCreateOrUpdateBusiness = () => {
+const useUpdateBusiness = () => {
     const client = useQueryClient()
 
     return useMutation({
-        mutationFn: (req: CreateBusinessRequest) => createOrUpdateBusiness(req),
+        mutationFn: (req: UpdateBusinessRequest) => updateBusiness(req),
         onSuccess: (result) => {
             const businessQueryKey: string[] = ['business', result.yelpId]
             const businessesQueryKey = client.getQueryCache().getAll()
@@ -29,9 +29,9 @@ const useCreateOrUpdateBusiness = () => {
                     })
                 })
             }
-            client.setQueryData<Business>(businessQueryKey, () => result)
+            client.setQueryData<Business>(businessQueryKey, result)
         }
     })
 }
 
-export default useCreateOrUpdateBusiness
+export default useUpdateBusiness

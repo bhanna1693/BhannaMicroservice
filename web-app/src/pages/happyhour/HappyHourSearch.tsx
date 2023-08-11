@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
-import {Link, useSearchParams} from "react-router-dom";
+import {useSearchParams} from "react-router-dom";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {HappyHourSearch, happyHourSearchSchema} from "../../schemas/happy-hour-search-schema";
 import useGetCompositeBusinessesQuery from "../../api/happyhour/get-composite-businesses";
+import HappyHourCard from "./HappyHourCard";
 
 export const HappyHourSearchPage = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -19,17 +20,20 @@ export const HappyHourSearchPage = () => {
     }, [searchParams])
 
     const {data} = useGetCompositeBusinessesQuery(formState, happyHourSearchSchema.isValidSync(formState))
-    const onSubmit = (values: HappyHourSearch) => {
+
+    const handleSubmit = (values: HappyHourSearch) => {
         // Handle form submission
         setSearchParams(values)
     }
 
+
     return (
         <>
-            <div className="flex justify-center py-5">
+            <h2 className="text-center">Search for a Happy Hour near you!</h2>
+            <div className="flex justify-center">
                 <Formik initialValues={formState}
                         validationSchema={happyHourSearchSchema}
-                        onSubmit={onSubmit}>
+                        onSubmit={handleSubmit}>
                     <Form>
                         <div className="join">
                             <div>
@@ -54,23 +58,15 @@ export const HappyHourSearchPage = () => {
                             {/*    <option>Drama</option>*/}
                             {/*    <option>Action</option>*/}
                             {/*</select>*/}
-                            <div className="indicator">
-                                <button className="btn join-item" type={"submit"}>Search</button>
+                            <div>
+                                <button className="btn btn-primary join-item" type={"submit"}>Search</button>
                             </div>
                         </div>
                     </Form>
                 </Formik>
             </div>
 
-            <ul>
-                {data?.map((b) => {
-                    return <li key={b.yelpBusiness.id}>
-                        <Link to={`/happyhour/${b.yelpBusiness.id}/${b.yelpBusiness.name}`}>
-                            {b.yelpBusiness.name} -- {b.yelpBusiness.id} -- {b.business?.id ?? "Business not yet added"}
-                        </Link>
-                    </li>
-                })}
-            </ul>
+            {data?.map((b) => <HappyHourCard b={b}/>)}
         </>
     )
 }
