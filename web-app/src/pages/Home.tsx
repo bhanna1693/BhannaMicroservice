@@ -1,7 +1,7 @@
 export const HomePage = () => {
     return (
-        <section className="flex flex-col gap-6">
-            {JSON.stringify("")}
+        <section className="container mx-auto">
+            <h1>My Home Page</h1>
         </section>
     )
 }

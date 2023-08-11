@@ -9,13 +9,13 @@ import queryClient from "./api/query-client";
 
 function App() {
     return (
-        <QueryClientProvider client={queryClient}>
-            <GlobalStateProvider>
+        <GlobalStateProvider>
+            <QueryClientProvider client={queryClient}>
                 <Navbar/>
                 <Outlet/>
-            </GlobalStateProvider>
-            <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
+                <ReactQueryDevtools initialIsOpen={false}/>
+            </QueryClientProvider>
+        </GlobalStateProvider>
     );
 }
 

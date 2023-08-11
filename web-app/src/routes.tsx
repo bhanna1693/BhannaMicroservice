@@ -1,15 +1,16 @@
-import {createBrowserRouter} from "react-router-dom";
+import {createBrowserRouter, Outlet} from "react-router-dom";
 import App from "./App";
 import ErrorPage from "./pages/Error";
 import {HomePage} from "./pages/Home";
 import {AboutPage} from "./pages/About";
 import PrivateRoute from "./components/PrivateRoute";
-import {HappyHourPage} from "./pages/happyhour";
 import {HappyHourSearchPage} from "./pages/happyhour/HappyHourSearch";
 import {HappyHourDetailsPage} from "./pages/happyhour/[yelpId]/[yelpName]";
 import {PokemonPage} from "./pages/Pokemon";
 import {SignInPage} from "./pages/auth/SignIn";
-import {SignupPage} from "./pages/auth/SignUp";
+import {SignUpPage} from "./pages/auth/SignUp";
+import PageLayout from "./layouts/PageLayout";
+import React from "react";
 
 const router = createBrowserRouter([
     {
@@ -19,7 +20,8 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "",
-                element: <HomePage/>
+                element: <HomePage/>,
+                hasErrorBoundary: true
             },
             {
                 path: "about",
@@ -27,34 +29,33 @@ const router = createBrowserRouter([
             },
             {
                 path: "happyhour",
-                element: <PrivateRoute><HappyHourPage/></PrivateRoute>,
+                element: <PrivateRoute children={<PageLayout children={<Outlet/>}/>}/>,
                 children: [
                     {
                         path: "",
-                        element: <PrivateRoute><HappyHourSearchPage/></PrivateRoute>,
+                        element: <HappyHourSearchPage/>,
                     },
                     {
                         path: ":yelpId/:yelpName",
-                        element: <PrivateRoute><HappyHourDetailsPage/></PrivateRoute>
+                        element: <HappyHourDetailsPage/>
                     },
                 ]
             },
             {
                 path: "pokemon",
-                element: <PrivateRoute><PokemonPage/></PrivateRoute>
+                element: <PrivateRoute children={<PokemonPage/>}/>
             },
             {
                 path: "auth",
                 children: [
                     {
                         path: "signin",
-                        element: <SignInPage/>
+                        element: <PageLayout children={<SignInPage/>}/>
                     },
                     {
                         path: "signup",
-                        element: <SignupPage/>
+                        element: <PageLayout children={<SignUpPage/>}/>
                     },
-
                 ]
             }
         ]

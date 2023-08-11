@@ -27,8 +27,8 @@ export const SignInPage = () => {
     });
 
     return (
-        <div className="flex items-center justify-center h-screen">
-            <form onSubmit={loginForm.handleSubmit} className="card card-normal bg-base-300 justify-center">
+        <div className={"flex justify-center"}>
+            <form onSubmit={loginForm.handleSubmit} className="card card-normal bg-base-300 justify-center min-w-[20rem] sm:min-w-[25rem] md:min-w-[30rem]">
                 <div className={"card-body"}>
                     <h2 className="card-title">Login</h2>
 

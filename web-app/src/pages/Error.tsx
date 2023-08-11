@@ -1,16 +1,31 @@
-import { useRouteError } from "react-router-dom";
+import {FunctionComponent} from "react";
+import {Link, useRouteError} from "react-router-dom";
 
-export default function ErrorPage() {
-    const error = useRouteError();
-    console.error(error);
+const ErrorPage: FunctionComponent = () => {
+    const error: any | null = useRouteError();
+    if (error?.status === 404) {
+        return <div className="error-page container mx-auto">
+            <h1>Error</h1>
+            <p>Oops! Something went wrong.</p>
+            <p>Error Status: {error.status}</p>
+            <p>Error Message: {error.statusText}</p>
+            <p>Error Message: {error.data}</p>
+            {/* You can add more error-specific information here */}
+
+            <Link className={"btn btn-secondary"} to={"/"}>Go home</Link>
+        </div>
+    }
 
     return (
-        <div id="error-page text-center">
-            <h1>Oops!</h1>
-            <p>Sorry, an unexpected error has occurred.</p>
-            <p>
-                <i>{JSON.stringify(error)}</i>
-            </p>
+        <div>
+            <h1>Error</h1>
+            <p>Oops! Something went wrong.</p>
+            <p>Error Message: {JSON.stringify(error)}</p>
+            {/* You can add more error-specific information here */}
+
+            <Link className={"btn btn-secondary"} to={"/"}>Go home</Link>
         </div>
     );
-}
+};
+
+export default ErrorPage;

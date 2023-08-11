@@ -1,6 +1,6 @@
 export const AboutPage = () => {
     return (
-        <section className="flex flex-col gap-6">
+        <section className="container mx-auto">
             <h1>My About Page</h1>
         </section>
     )
