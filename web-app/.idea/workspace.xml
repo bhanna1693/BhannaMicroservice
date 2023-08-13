@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d6ab3dbb-a760-4172-bf90-4a20df40b664" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="com.haulmont.rcb.palette" />
+        <option value="com.haulmont.rcb.previews" />
+        <option value="com.haulmont.rcb.index" />
+        <option value="com.haulmont.rcb.useInitial" />
+        <option value="com.haulmont.rcb.README" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
+  <component name="ProjectId" id="2TWf0LTU3K0sP2VXwCr3YxGTNGJ" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/brianhanna/RiderProjects/BhannaMicroservice/web-app/src/pages",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "/Users/brianhanna/RiderProjects/BhannaMicroservice/web-app/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="ReactDesignerToolWindowState">
+    <option name="myId2Visible">
+      <map>
+        <entry key="com.haulmont.rcb.reactComponents" value="false" />
+        <entry key="com.haulmont.rcb.reactInspector" value="false" />
+      </map>
+    </option>
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/pages" />
+      <recent name="$PROJECT_DIR$/src/containers" />
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/favicon_io" />
+      <recent name="$PROJECT_DIR$/public" />
+      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$/src/pages/happyhour" />
+      <recent name="$PROJECT_DIR$/src/pages/happyhour/[yelpId]" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="web-app run" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d6ab3dbb-a760-4172-bf90-4a20df40b664" name="Changes" comment="" />
+      <created>1691163534395</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1691163534395</updated>
+      <workItem from="1691163536132" duration="370000" />
+      <workItem from="1691183405510" duration="61981000" />
+      <workItem from="1691613040679" duration="14133000" />
+      <workItem from="1691627842653" duration="52296000" />
+    </task>
+    <task id="LOCAL-00001" summary="login func added">
+      <option name="closed" value="true" />
+      <created>1691200192172</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1691200192174</updated>
+    </task>
+    <task id="LOCAL-00002" summary="login redirect logic est">
+      <option name="closed" value="true" />
+      <created>1691201745474</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1691201745474</updated>
+    </task>
+    <task id="LOCAL-00003" summary="businesses search done">
+      <option name="closed" value="true" />
+      <created>1691599179768</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1691599179769</updated>
+    </task>
+    <task id="LOCAL-00004" summary="getting business and preparing to post">
+      <option name="closed" value="true" />
+      <created>1691624672218</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1691624672219</updated>
+    </task>
+    <task id="LOCAL-00005" summary="made it up to final request to get OpenAI response">
+      <option name="closed" value="true" />
+      <created>1691629684604</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1691629684604</updated>
+    </task>
+    <task id="LOCAL-00006" summary="more abstractions">
+      <option name="closed" value="true" />
+      <created>1691760265440</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1691760265441</updated>
+    </task>
+    <task id="LOCAL-00007" summary="!! -&gt; !">
+      <option name="closed" value="true" />
+      <created>1691770569514</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1691770569514</updated>
+    </task>
+    <task id="LOCAL-00008" summary="fixed error handling on fetch requests">
+      <option name="closed" value="true" />
+      <created>1691772077647</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1691772077647</updated>
+    </task>
+    <task id="LOCAL-00009" summary="added favicons">
+      <option name="closed" value="true" />
+      <created>1691775747817</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1691775747817</updated>
+    </task>
+    <task id="LOCAL-00010" summary="added favicons">
+      <option name="closed" value="true" />
+      <created>1691775759030</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1691775759030</updated>
+    </task>
+    <task id="LOCAL-00011" summary="added favicons">
+      <option name="closed" value="true" />
+      <created>1691775834078</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1691775834078</updated>
+    </task>
+    <task id="LOCAL-00012" summary="register component setup">
+      <option name="closed" value="true" />
+      <created>1691785792762</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1691785792762</updated>
+    </task>
+    <task id="LOCAL-00013" summary="removed web-app-nextjs; updated with gh-pages">
+      <option name="closed" value="true" />
+      <created>1691884981751</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1691884981751</updated>
+    </task>
+    <task id="LOCAL-00014" summary="removed web-app-nextjs; updated with gh-pages">
+      <option name="closed" value="true" />
+      <created>1691885110376</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1691885110376</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="login func added" />
+    <MESSAGE value="login redirect logic est" />
+    <MESSAGE value="businesses search done" />
+    <MESSAGE value="getting business and preparing to post" />
+    <MESSAGE value="made it up to final request to get OpenAI response" />
+    <MESSAGE value="more abstractions" />
+    <MESSAGE value="!! -&gt; !" />
+    <MESSAGE value="fixed error handling on fetch requests" />
+    <MESSAGE value="added favicons" />
+    <MESSAGE value="register component setup" />
+    <MESSAGE value="removed web-app-nextjs; updated with gh-pages" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed web-app-nextjs; updated with gh-pages" />
+  </component>
+</project>
