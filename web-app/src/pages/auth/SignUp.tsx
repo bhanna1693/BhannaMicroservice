@@ -5,7 +5,7 @@ import useSignUp from "../../api/auth/sign-up";
 import {RegisterRequest, registerSchema} from "../../schemas/register-schema";
 
 export const SignUpPage = () => {
-    const {mutateAsync, error, isError} = useSignUp()
+    const {mutateAsync, isError} = useSignUp()
     const navigate = useNavigate()
     const location = useLocation();
 
