@@ -29,6 +29,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "deploy": "gh-pages -d build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -54,6 +55,7 @@
     "@tanstack/eslint-plugin-query": "^4.32.5",
     "@types/js-cookie": "^3.0.3",
     "daisyui": "^3.5.1",
+    "gh-pages": "^6.0.0",
     "tailwindcss": "^3.3.3"
   }
 }

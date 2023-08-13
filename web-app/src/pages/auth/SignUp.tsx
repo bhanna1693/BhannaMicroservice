@@ -59,8 +59,7 @@ export const SignUpPage = () => {
                             <div className={"text-error"}>{signUpForm.errors.password}</div> : null}
                     </div>
                     <div className={"text-error"}>
-                        {/* @ts-ignore */}
-                        {isError ? error : null}
+                        {/*{isError ? error : null}*/}
                     </div>
                     <div className={"card-actions mt-5"}>
                         <button
